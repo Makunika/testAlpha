@@ -21,6 +21,11 @@ public class UserRestController {
         this.repository = repository;
     }
 
+    /**
+     * Авторизоваться, если такого пользователя нет в репозитории, то он создатся
+     * @param userDtoRequest пользователь
+     * @return пользователь
+     */
     @PostMapping
     public ResponseEntity authUser(@RequestBody UserDtoRequest userDtoRequest) {
         User user = repository.findUser(userDtoRequest.getUsername());

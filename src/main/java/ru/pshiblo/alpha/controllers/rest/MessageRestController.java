@@ -21,21 +21,14 @@ public class MessageRestController {
         this.repository = repository;
     }
 
+
+    /**
+     * Получить все сообщения
+     */
     @GetMapping
     public ResponseEntity<List<MessageDtoResponse>> getAllMessages() {
         return ResponseEntity.ok(repository.getAllMessages().stream()
                 .map(MessageDtoResponse::fromMessage)
                 .collect(Collectors.toList()));
-    }
-
-    @PostMapping
-    public ResponseEntity createMessage(@RequestBody MessageDtoRequest messageDtoRequest) {
-        User user = repository.findUser(messageDtoRequest.getOwnerUsername());
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        repository.addMessage(messageDtoRequest.toMessage(user));
-        return ResponseEntity.ok().build();
     }
 }

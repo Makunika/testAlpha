@@ -8,6 +8,8 @@ import lombok.Setter;
 import ru.pshiblo.alpha.entity.Message;
 import ru.pshiblo.alpha.entity.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -35,7 +37,7 @@ public class MessageDtoResponse {
      * Дата создания сообщения
      */
     @JsonProperty("date")
-    private Date date;
+    private String date;
 
     /**
      * Создать DTO из сообщения
@@ -43,6 +45,7 @@ public class MessageDtoResponse {
      * @return DTO для сообщения
      */
     public static MessageDtoResponse fromMessage(Message message) {
-        return new MessageDtoResponse(message.getMessage(), message.getOwner().getUsername(), message.getDate());
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        return new MessageDtoResponse(message.getMessage(), message.getOwner().getUsername(), dateFormat.format(message.getDate()));
     }
 }

@@ -1,0 +1,85 @@
+
+.card {
+    border: 1px solid #ebebeb;
+    margin-bottom: 30px;
+}
+
+.ps-container {
+    position: relative
+}
+
+.ps-container {
+    -ms-touch-action: auto;
+    touch-action: auto;
+    overflow: hidden !important;
+    -ms-overflow-style: none
+}
+
+#messages {
+    overflow-y: scroll !important;
+    height:400px !important;
+}
+
+.media-body {
+    margin-bottom: 0;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.media-body p {
+    position: relative;
+    padding: 6px 8px;
+    margin: 4px 0;
+    border-radius: 3px;
+    font-weight: 100;
+}
+
+.media-body p.meta {
+    background-color: transparent !important;
+    padding: 0;
+    opacity: .8
+}
+
+
+.media-body.media-body-reverse {
+    align-items: flex-end;
+}
+
+.media-body.media-body-reverse .media-body p {
+    background-color: #48b0f7;
+    color: #fff
+}
+
+.publisher {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: #f9fafb
+}
+
+.publisher>*:first-child {
+    margin-left: 0
+}
+
+.publisher>* {
+    margin: 0 8px
+}
+
+.publisher-input {
+    flex-grow: 1;
+    border: none;
+    outline: none !important;
+    background-color: transparent
+}
+
+.publisher-btn {
+    text-decoration: none;
+    background-color: transparent;
+    color: #48b0f7;
+    cursor: pointer;
+}

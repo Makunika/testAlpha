@@ -1,17 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Тестовое задание</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+    <link rel="stylesheet" href="/main.css">
+    <script src="/app.js"></script>
 </head>
 <body>
-
-<div class="main">
-    <h1>Введите ник</h1>
-    <label for="nickname">Username</label>
-    <input type="text" id="nickname">
-    <button>Продолжить</button>
+<div id="main-content" class="container">
+    <div id="auth">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <form class="form-label">
+                    <div class="form-group m-5">
+                        <input type="text" id="username_auth" class="form-control mb-2" placeholder="Username">
+                        <button id="entry" class="btn btn-default" type="submit">Войти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="chat">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <div class="m-1">
+                    <p class="mb-2" id="username_chat">Nickname</p>
+                    <button id="exit" class="btn btn-default" type="submit">Выйти</button>
+                </div>
+            </div>
+        </div>
+        <div class="row container d-flex justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="ps-container ps-theme-default ps-active-y" id="messages">
+                        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                            <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+                            <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
+                        </div>
+                    </div>
+                    <div class="publisher">
+                        <input class="publisher-input" type="text" id="input_message" placeholder="Write something">
+                        <a class="publisher-btn" id="btn_message">
+                            <p>Отправить</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 </body>
 </html>
