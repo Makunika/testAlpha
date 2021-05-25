@@ -22,7 +22,7 @@ function addMessage(message) {
 }
 
 function connect() {
-    const socket = new SockJS('/ws');
+    const socket = new SockJS('ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
@@ -45,7 +45,7 @@ function openChat() {
     $("#username_chat").text(username);
     $.ajax({
         type: "GET",
-        url: "/api/messages",
+        url: "api/messages",
         dataType: 'json',
         contentType: "application/json",
         success: function (data) {
@@ -58,7 +58,7 @@ function openChat() {
 function entry() {
     $.ajax({
         type: "POST",
-        url: "/api/users",
+        url: "api/users",
         dataType: 'json',
         contentType: "application/json",
         data: JSON.stringify({ 'username': $("#username_auth").val() }),
