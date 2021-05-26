@@ -47,7 +47,7 @@ public class Repository {
      * @return лист сообщений
      */
     public List<Message> getAllMessages(int size, int offset) {
-        return Collections.unmodifiableList(messages).subList(offset, size);
+        return Collections.unmodifiableList(messages).subList(offset, offset + size);
     }
 
     /**
