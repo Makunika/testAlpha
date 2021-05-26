@@ -45,4 +45,9 @@ public class RepositoryUsers implements Repository<User> {
     public long getCount() {
         return users.size();
     }
+
+    @Override
+    public void remove(User object) {
+        users.remove(object.getUsername());
+    }
 }

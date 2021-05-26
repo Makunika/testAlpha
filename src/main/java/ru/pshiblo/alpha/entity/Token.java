@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Сущность вебсокет-юзер
+ * Токен авторизации
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class WebSocketUser {
+public class Token {
 
     /**
      * Пользователь

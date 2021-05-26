@@ -1,7 +1,7 @@
 let stompClient = null;
 
 let username;
-let ws_uuid;
+let token;
 let isAuth = false;
 
 function addMessage(message) {
@@ -59,13 +59,13 @@ function openChat() {
 function entry() {
     $.ajax({
         type: "POST",
-        url: "api/users",
+        url: "api/auth",
         dataType: 'json',
         contentType: "application/json",
         data: JSON.stringify({ 'username': $("#username_auth").val() }),
         success: function (data) {
             username = data.username;
-            ws_uuid = data.ws_uuid;
+            token = data.token;
             isAuth = true;
             openChat();
         }
@@ -73,12 +73,19 @@ function entry() {
 }
 
 function exit() {
-    disconnect();
-    username = null;
-    $("#auth").show();
-    $("#chat").hide();
-    isAuth = false;
-    $("#messages").html(`
+    $.ajax({
+        type: "DELETE",
+        url: "api/auth",
+        dataType: 'json',
+        contentType: "application/json",
+        data: JSON.stringify({ 'token': token }),
+        success: function (data) {
+            disconnect();
+            username = null;
+            $("#auth").show();
+            $("#chat").hide();
+            isAuth = false;
+            $("#messages").html(`
          <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
             <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
          </div>
@@ -86,11 +93,13 @@ function exit() {
              <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
          </div>
     `)
+        }
+    })
 }
 
 function sendMessage() {
     stompClient.send("/app/api/messages", {}, JSON.stringify({
-        'ws_uuid': ws_uuid,
+        'token': token,
         'message': $("#input_message").val()
     }));
 }

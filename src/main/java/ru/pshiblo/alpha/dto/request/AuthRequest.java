@@ -8,13 +8,13 @@ import lombok.Setter;
 import ru.pshiblo.alpha.entity.User;
 
 /**
- * DTO ответа для пользователя
+ * Запрос авторизации
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDtoRequest {
+public class AuthRequest {
 
     /**
      * Юзернейм пользователя

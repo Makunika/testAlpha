@@ -26,4 +26,10 @@ public interface Repository<T> {
      * @return размер репозитория
      */
     long getCount();
+
+    /**
+     * Удалить объект
+     * @param object объект для удаления
+     */
+    void remove(T object);
 }

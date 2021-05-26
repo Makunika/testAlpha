@@ -26,10 +26,10 @@ public class MessageDtoRequest {
     private String message;
 
     /**
-     * Юзернейм автора
+     * Токен авторизации
      */
-    @JsonProperty("ws_uuid")
-    private String wsUUID;
+    @JsonProperty("token")
+    private String token;
 
     /**
      * перевести DTO в сообщение

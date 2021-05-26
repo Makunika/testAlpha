@@ -9,22 +9,22 @@ import ru.pshiblo.alpha.dto.request.MessageDtoRequest;
 import ru.pshiblo.alpha.dto.response.MessageDtoResponse;
 import ru.pshiblo.alpha.entity.Message;
 import ru.pshiblo.alpha.entity.User;
-import ru.pshiblo.alpha.entity.WebSocketUser;
+import ru.pshiblo.alpha.entity.Token;
 import ru.pshiblo.alpha.repository.RepositoryMessages;
 import ru.pshiblo.alpha.repository.RepositoryUsers;
-import ru.pshiblo.alpha.repository.RepositoryWebSocketUsers;
+import ru.pshiblo.alpha.repository.RepositoryToken;
 
 @Controller
 public class MessageWebSocketController {
 
     private final RepositoryUsers repositoryUsers;
     private final RepositoryMessages repositoryMessages;
-    private final RepositoryWebSocketUsers repositoryWebSocketUsers;
+    private final RepositoryToken repositoryToken;
 
-    public MessageWebSocketController(RepositoryUsers repositoryUsers, RepositoryMessages repositoryMessages, RepositoryWebSocketUsers repositoryWebSocketUsers) {
+    public MessageWebSocketController(RepositoryUsers repositoryUsers, RepositoryMessages repositoryMessages, RepositoryToken repositoryToken) {
         this.repositoryUsers = repositoryUsers;
         this.repositoryMessages = repositoryMessages;
-        this.repositoryWebSocketUsers = repositoryWebSocketUsers;
+        this.repositoryToken = repositoryToken;
     }
 
     /**
@@ -36,11 +36,11 @@ public class MessageWebSocketController {
     @SendTo("/chat/messages")
     public MessageDtoResponse processMessage(@Payload MessageDtoRequest messageDtoRequest) {
 
-        WebSocketUser webSocketUserByUuid = repositoryWebSocketUsers.findWebSocketUserByUuid(messageDtoRequest.getWsUUID());
-        if (webSocketUserByUuid == null) {
-            throw new IllegalArgumentException("ws_uuid not valid");
+        Token tokenByUuid = repositoryToken.findTokenByUuid(messageDtoRequest.getToken());
+        if (tokenByUuid == null) {
+            throw new IllegalArgumentException("token not valid");
         }
-        User user = webSocketUserByUuid.getUser();
+        User user = tokenByUuid.getUser();
         Message message = messageDtoRequest.toMessage(user);
         repositoryMessages.add(message);
         return MessageDtoResponse.fromMessage(message);

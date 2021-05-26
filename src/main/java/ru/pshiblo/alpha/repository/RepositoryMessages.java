@@ -44,4 +44,9 @@ public class RepositoryMessages implements Repository<Message> {
     public long getCount() {
         return messages.size();
     }
+
+    @Override
+    public void remove(Message object) {
+        messages.remove(object);
+    }
 }

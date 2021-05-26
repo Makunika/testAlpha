@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.pshiblo.alpha.entity.Token;
 import ru.pshiblo.alpha.entity.User;
 
 /**
@@ -22,8 +23,8 @@ public class AuthResponse {
     @JsonProperty("username")
     private String username;
 
-    @JsonProperty("ws_uuid")
-    private String UuidWs;
+    @JsonProperty("token")
+    private String token;
 
     /**
      * Создает DTO из пользователя
@@ -31,7 +32,7 @@ public class AuthResponse {
      * @param uuidWs - uuid веб сокета
      * @return DTO для пользователя
      */
-    public static AuthResponse fromUser(User user, String uuidWs) {
-        return new AuthResponse(user.getUsername(), uuidWs);
+    public static AuthResponse fromToken(Token token) {
+        return new AuthResponse(token.getUser().getUsername(), token.getUUID());
     }
 }
