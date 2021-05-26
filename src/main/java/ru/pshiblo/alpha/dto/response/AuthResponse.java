@@ -14,7 +14,7 @@ import ru.pshiblo.alpha.entity.User;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDtoResponse {
+public class AuthResponse {
 
     /**
      * Юзернейм пользователя
@@ -22,12 +22,16 @@ public class UserDtoResponse {
     @JsonProperty("username")
     private String username;
 
+    @JsonProperty("ws_uuid")
+    private String UuidWs;
+
     /**
      * Создает DTO из пользователя
      * @param user пользователь
+     * @param uuidWs - uuid веб сокета
      * @return DTO для пользователя
      */
-    public static UserDtoResponse fromUser(User user) {
-        return new UserDtoResponse(user.getUsername());
+    public static AuthResponse fromUser(User user, String uuidWs) {
+        return new AuthResponse(user.getUsername(), uuidWs);
     }
 }

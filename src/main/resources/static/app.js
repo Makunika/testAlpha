@@ -1,6 +1,7 @@
 let stompClient = null;
 
 let username;
+let ws_uuid;
 let isAuth = false;
 
 function addMessage(message) {
@@ -64,6 +65,7 @@ function entry() {
         data: JSON.stringify({ 'username': $("#username_auth").val() }),
         success: function (data) {
             username = data.username;
+            ws_uuid = data.ws_uuid;
             isAuth = true;
             openChat();
         }
@@ -88,7 +90,7 @@ function exit() {
 
 function sendMessage() {
     stompClient.send("/app/api/messages", {}, JSON.stringify({
-        'owner_username': username,
+        'ws_uuid': ws_uuid,
         'message': $("#input_message").val()
     }));
 }

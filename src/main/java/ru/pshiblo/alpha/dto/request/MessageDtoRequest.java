@@ -28,8 +28,8 @@ public class MessageDtoRequest {
     /**
      * Юзернейм автора
      */
-    @JsonProperty("owner_username")
-    private String ownerUsername;
+    @JsonProperty("ws_uuid")
+    private String wsUUID;
 
     /**
      * перевести DTO в сообщение
@@ -37,9 +37,6 @@ public class MessageDtoRequest {
      * @return сообщение
      */
     public Message toMessage(User user) {
-        if (!user.getUsername().equals(ownerUsername)) {
-            throw new IllegalArgumentException("this user: " + user.getUsername() + " not equal with in dto: " + ownerUsername);
-        }
         return new Message(message, user, new Date());
     }
 }

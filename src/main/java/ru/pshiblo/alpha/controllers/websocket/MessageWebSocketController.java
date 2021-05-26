@@ -1,25 +1,30 @@
 package ru.pshiblo.alpha.controllers.websocket;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import ru.pshiblo.alpha.consts.EndPoints;
 import ru.pshiblo.alpha.dto.request.MessageDtoRequest;
 import ru.pshiblo.alpha.dto.response.MessageDtoResponse;
 import ru.pshiblo.alpha.entity.Message;
 import ru.pshiblo.alpha.entity.User;
-import ru.pshiblo.alpha.repository.Repository;
+import ru.pshiblo.alpha.entity.WebSocketUser;
+import ru.pshiblo.alpha.repository.RepositoryMessages;
+import ru.pshiblo.alpha.repository.RepositoryUsers;
+import ru.pshiblo.alpha.repository.RepositoryWebSocketUsers;
 
 @Controller
 public class MessageWebSocketController {
 
-    private final Repository repository;
+    private final RepositoryUsers repositoryUsers;
+    private final RepositoryMessages repositoryMessages;
+    private final RepositoryWebSocketUsers repositoryWebSocketUsers;
 
-    public MessageWebSocketController(Repository repository) {
-        this.repository = repository;
+    public MessageWebSocketController(RepositoryUsers repositoryUsers, RepositoryMessages repositoryMessages, RepositoryWebSocketUsers repositoryWebSocketUsers) {
+        this.repositoryUsers = repositoryUsers;
+        this.repositoryMessages = repositoryMessages;
+        this.repositoryWebSocketUsers = repositoryWebSocketUsers;
     }
 
     /**
@@ -30,12 +35,14 @@ public class MessageWebSocketController {
     @MessageMapping(EndPoints.API_MESSAGE)
     @SendTo("/chat/messages")
     public MessageDtoResponse processMessage(@Payload MessageDtoRequest messageDtoRequest) {
-        User user = repository.findUser(messageDtoRequest.getOwnerUsername());
-        if (user == null) {
-            throw new IllegalArgumentException("user is null because in message userOwner not exist!");
+
+        WebSocketUser webSocketUserByUuid = repositoryWebSocketUsers.findWebSocketUserByUuid(messageDtoRequest.getWsUUID());
+        if (webSocketUserByUuid == null) {
+            throw new IllegalArgumentException("ws_uuid not valid");
         }
+        User user = webSocketUserByUuid.getUser();
         Message message = messageDtoRequest.toMessage(user);
-        repository.addMessage(message);
+        repositoryMessages.add(message);
         return MessageDtoResponse.fromMessage(message);
     }
 }
